@@ -1,0 +1,47 @@
+[
+  {
+    "id": "Bypass_Debugger",
+    "name": "Bypass Debugger",
+    "description": "绕过无限Debugger， 如绕不过去或报错请使用火狐忽略断点。"
+  },
+  {
+    "id": "hook_log v0.1",
+    "name": "hook_log v0.1",
+    "description": "防止js重写log方法，该版本不生效可以尝试使用v0.2版本。"
+  },
+  {
+    "id": "hook_log v0.2",
+    "name": "hook_log v0.2",
+    "description": "防止js重写log方法 注：v0.1和v0.2脚本不能混用"
+  },
+  {
+    "id": "hook_table",
+    "name": "Hook table",
+    "description": "绕过js检测运行时间差来实现反调试"
+  },
+  {
+    "id": "hook_clear",
+    "name": "hook clear",
+    "description": "禁止js清除控制台数据"
+  },
+  {
+    "id": "hook_close",
+    "name": "hook close",
+    "description": "重写close方法，以此来避免网站反调试关闭当前页面"
+  },
+  {
+    "id": "hook_history",
+    "name": "hook history",
+    "description": "避免网站反调试返回上一页或某个特定历史页面"
+  },
+  {
+    "id": "Fixed_window_size",
+    "name": "<div style=\"font-size: 0.9em;\">Fixed window size</div>",
+    "description": "固定浏览器高度宽度值以绕过前端检测用户是否打开控制台"
+  },
+  {
+    "id": "location_href",
+    "name": "页面跳转JS代码定位通杀方案",
+    "description": "阻断页面跳转，留在当前页面分析"
+  }
+]

@@ -1,0 +1,89 @@
+/* 设置全局样式 */
+body {
+    font-family: Arial, sans-serif;     /* 字体 */
+    background-color: #fafafd;          /* 背景颜色 */
+    margin: 10px;                       /* 外边距 */
+    padding: 10px;                      /* 内边距 */
+}
+
+/* 设置选择信息区块的样式 */
+#xuanze_info {
+    background-color: #f9f9f9;          
+    padding: 10px;                   
+    border: 1px solid #ddd;          
+    border-radius: 5px;               
+    /* margin-bottom: 10px;                 */
+    font-size: larger;                  /* 字体大小 */
+    color: brown;                       /* 字体颜色 */
+}
+/* 设置选择信息区块的样式 */
+.shurukuang_style {
+    background-color: #f9f9f9;          
+    padding: 10px;                   
+    border: 1px solid #ddd;          
+    border-radius: 5px;              
+    
+    font-size: larger;                  /* 字体大小 */
+    color: brown;                       /* 字体颜色 */
+}
+
+/* 设置选择区块的样式 */
+#xuanze {
+    background-color: #e0e0e0;          /* 背景颜色 */
+    padding: 20px;                      /* 内边距 */
+    border: 1px solid #ccc;             /* 边框 */
+    border-radius: 5px;                 /* 圆角 */
+    margin-bottom: 10px;                /* 下外边距 */
+}
+
+/* 设置label的样式 */
+label {
+    margin-left: 10px;                  /* 左外边距 */
+}
+
+/* 设置CSS内容区块的样式 */
+#css_content {
+    background-color: #f9f9f9;          /* 背景颜色 */
+    padding: 10px;                      /* 内边距 */
+    border: 1px solid #ddd;             /* 边框 */
+    border-radius: 5px;                 /* 圆角 */
+    margin-bottom: 10px;                /* 下外边距 */
+    color: brown;                       /* 字体颜色 */
+}
+
+/* 设置内容区块和转换区块的样式 */
+#content, #convert {
+    background-color: #fff;             /* 背景颜色 */
+    padding: 20px;                      /* 内边距 */
+    border: 1px solid #ccc;             /* 边框 */
+    border-radius: 5px;                 /* 圆角 */
+    margin-bottom: 10px;                /* 下外边距 */
+}
+
+/* 设置按钮的样式 */
+button {
+    padding: 6px 6px;                   /* 内边距 */
+    cursor: pointer;                    /* 鼠标指针 */
+    border: 2px solid #414040;          /* 边框 */
+    border-radius: 1px;                 /* 圆角 */
+    background-color: transparent;      /* 背景透明 */
+}
+
+/* 设置按钮悬停样式 */
+button:hover {
+    border: 2px solid rebeccapurple;    /* 边框颜色 */
+    background-color: yellowgreen;      /* 背景颜色 */
+}
+
+/* 设置水平线的样式 */
+hr {
+    border: none;                       /* 无边框 */
+    border-top: 1px solid #ccc;         /* 上边框 */
+    margin: 20px 0;                     /* 上下外边距 */
+}
+
+/* 设置标题的样式 */
+h2 {
+    color: #333;                        /* 字体颜色 */
+    font-size: small;                   /* 字体大小 */
+}

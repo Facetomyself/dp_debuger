@@ -1,0 +1,71 @@
+
+<style>
+    .code-container {
+        
+        margin: 10px auto;
+        padding: 15px;
+        font-family: Arial, sans-serif;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .button-group button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 3px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
+
+    .button-group button:hover {
+        background-color: #3d8b40;
+    }
+
+    #sao_textarea6 {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #4CAF50;
+        border-radius: 4px;
+        font-family: Consolas, Monaco, monospace;
+        font-size: 13px;
+        line-height: 1.4;
+        resize: vertical;
+        min-height: 220px;
+        background-color: #f8fff8;
+        height: 100%;
+        
+        box-sizing: border-box; /* 让内边距和边框包含在元素的宽度和高度内 */
+    }
+
+    #sao_textarea6:focus {
+        outline: none;
+        box-shadow: 0 0 3px rgba(76, 175, 80, 0.3);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: #ccc;
+        margin: 10px 0;
+    }
+</style>
+
+<div class="code-container">
+    <div class="button-group">
+        <button id="generate_code61" style="font-weight: bold;">生成代码(index)①</button>
+        <button id="generate_code62" style="font-weight: bold;">生成代码(id)②</button>
+        <button id="generate_code63">添加启动代码</button>
+        <button id="copy_code6">复制代码</button>
+        <button id="clear_code6">清空</button>
+    </div>
+    <hr>
+    <textarea id="sao_textarea6" placeholder="骚神嵌入式代码编辑器" spellcheck="false"></textarea>
+</div>

@@ -1,0 +1,416 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Tabs - Default functionality</title>
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css"> -->
+     
+    
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
+    <!-- <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script> -->
+    <!-- <script>
+    $( function() {
+      $( "#sao_tabs" ).tabs();
+    } );
+    </script> -->
+  </head>
+<body>
+    <link rel="stylesheet" href="chrome-extension://替换成插件id/css/jquery-ui.css">
+
+
+
+
+    <div id="sao_tabs">
+        <ul>
+            <li ><a href="#sao_tabs-1" id="sao-a-1">元素筛选(F4)</a></li>
+            <li ><a href="#sao_tabs-2" id="sao-a-2">万能复制(F8)</a></li>
+            <li ><a href="#sao_tabs-3" id="sao-a-3">代码录制(F9)</a></li>
+            <li ><a href="#sao_tabs-4" id="sao-a-4">功能大全</a></li>
+            <li ><a href="#sao_tabs-5" id="sao-a-5">文档速查</a></li>
+            <li ><a href="#sao_tabs-6" id="sao-a-6">自动填表(F10)</a></li>
+            <label>按 Esc 显示/隐藏 该窗口</label>
+            
+        </ul>
+        <div id="sao_tabs-1">
+
+            <p>Drissionpage语法校验和元素筛选(F4唤起和隐藏该界面)</p>
+            <hr>
+
+            <button id="copy_yufa">复制DP语法</button>
+            <button id="copy_yufa_add_index">复制DP语法并添加索引</button>
+
+            <span id="dp_yufa">未生成..</span>
+
+            <hr>
+            <button id="copy_xpath">复制XPath语法</button>
+
+            <span id="xpath_yufa">未生成..</span>
+
+            <hr>
+            <label>元素名称</label> <input type="search" class="sao_input" id="tag_name" placeholder="名"
+                list="dataList_tagname">
+            <button id="clear_tag_name">清空</button>
+
+            <datalist id="dataList_tagname">
+                <option value="test">
+            </datalist>
+            <br>
+            <label>元素属性</label>
+            <input type="search" class="sao_input" id="tag_shuxing" placeholder="属性" list="dataList_shuxing">
+            <datalist id="dataList_shuxing">
+                <option value="test">
+            </datalist>
+            <input type="search" class="sao_input" id="tag_zhi" placeholder="属性值">
+            <button id="clear_shuxing">清空</button>
+            <br>
+            <label>文本内容包含-</label><input type="search" class="sao_input" id="tag_wenben" placeholder="文本内容">
+            <button id="clear_wenben">清空</button>
+            <hr>
+            <lablel><strong>元素语法命中查重列表 <span id="numberOfRepeatingElements" style="color: red;">?</span></strong>个</span></label>
+                <button id="MarkAll" style="background-color: brown;">标记命中元素</button>
+                <button id="unMarkAll" style="background-color: brown;">清除所有标记</button>
+
+                <div id="yulan">实时显示结果..</div>
+
+        </div>
+        <div id="sao_tabs-2">
+            <p>test</p>
+  
+        </div>
+        <div id="sao_tabs-3">
+            <button id="copy_code">复制代码</button>
+            <button id="clear_code">清空</button>
+            <!-- <button id="chushihua_code">初始化</button> -->
+            <button id="startRecord" style="background-color: darkgreen;">全新录制</button>
+            <button id="continueRecord" style="background-color: darkgoldenrod;">继续录制</button>
+            <button id="resetRecord" style="background-color: brown;">结束录制</button>
+            <textarea id="sao_textarea" rows="10" cols="50" placeholder="骚神嵌入式代码编辑器" spellcheck="false"></textarea>
+        </div>
+        <div id="sao_tabs-4">
+            <label>插件设置</label>
+            <button id="floatSwichBtn" style="font-weight: bold;background-color: brown;">跟随浮窗开关</button>
+            <button id="staticSwitchBtn" style="font-weight: bold;background-color: brown;">固定浮窗开关</button>
+            <button id="copyHistoryBtn" style="font-weight: bold;background-color: brown;">元素复制历史记录</button>
+            <hr>
+            <label>实用功能</label>
+            <button id="copy_ua">复制网页UA</button>
+            <button id="copy_cookie">复制网页Cookie</button>
+            <button id="mobileUserAgent">手机模拟</button>
+            <button id="saoCtool">CTool</button>
+            <button id="saoJsonCrack">JSON可视化</button>
+            <button id="coderSearchList">程序员速查表</button>
+            <button id="spiderTools">爬虫工具库</button>
+            
+      
+        
+        
+        </div>
+        <div id="sao_tabs-5">
+            <div class="tab5-div">
+        
+                <input type="search" id="decodeUrlInput" placeholder="输入URL">
+                <button id="decodeUrlBtn">解码URL</button>
+                <button id="copyDecodeUrlBtn">复制</button>
+                <button id="codeHouse" style="font-weight: bold;background-color: brown;">代码仓库</button>
+            </div>
+            <hr>
+            <div class="tab5-div" id="actionDiv">        
+                <a id="actionsBtn3">启动参数</a>        
+                <a id="actionsBtn4">标签页</a>        
+                <a id="actionsBtn7">定位语法</a>        
+                <a id="actionsBtn2">语法简写</a>
+                <a id="actionsBtn8">操作元素</a>        
+                <a id="actionsBtn5">等待</a>        
+                <a id="actionsBtn">动作链</a>
+                <a id="actionsBtn6">数据监听</a>        
+                <a id="actionsBtn9">复制历史</a>        
+            </div>
+
+            <div class="SaoTableDiv">
+                <p>点击表格中任意单元格就可复制其文本</p>
+                <table id="SaoTable">
+                </table>        
+        
+            </div>
+        
+        </div>
+
+        <div id="sao_tabs-6">
+        </div>
+    </div>
+
+
+
+
+
+    <!-- SaoTable的样式 -->
+    <style>
+        .SaoTableDiv{            
+                max-height: 500px;
+                overflow-y: auto;
+            }
+        
+        #SaoTable {
+            width: 100%;
+            border-collapse: collapse;
+            /* 合并边框 */
+            margin: 20px 0;
+            /* 上下间距 */
+            font-family: consolas ,Arial, sans-serif;
+            /* 使用简洁的字体 */
+            font-size: 12px;
+            /* 设置较小的字体 */
+            color: #333;
+            /* 深灰色文本 */
+           
+        }
+    
+        #SaoTable th,
+        #SaoTable td {
+            padding: 8px 12px;
+            /* 单元格内边距 */
+            text-align: left;
+            /* 文本左对齐 */
+            border: 1px solid #ddd;
+            /* 边框颜色为浅灰色 */
+        }
+    
+        #SaoTable th {
+            background-color: #f4f4f4;
+            /* 表头背景色 */
+            font-weight: bold;
+            /* 表头加粗 */
+        }
+    
+        #SaoTable tr:nth-child(even) {
+            background-color: #f9f9f9;
+            /* 偶数行背景色 */
+        }
+    
+        #SaoTable tr:hover {
+            background-color: #f1f1f1;
+            /* 鼠标悬停时的背景色 */
+        }
+    </style>
+
+
+    <!-- tab5的css样式 -->
+    <style>
+        .tab5-div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background-color: #f4f4f9;
+            border-radius: 8px;
+        }
+    
+        .tab5-div a {
+            /* 内边距，设置链接内容与边缘的间距 */
+            padding: 5px 10px;
+            /* 去除默认的下划线 */
+            text-decoration: none;
+            /* 过渡效果，让鼠标悬浮时的样式变化更平滑 */
+            transition: all 0.2s;
+            /* 设置圆角 */
+            border-radius: 2px;
+            /* 让字体紧凑些，可以通过调整行高和字间距来实现 */
+            line-height: 1;
+            letter-spacing: -0.05em;
+            cursor: pointer;
+        }
+    
+        /* 鼠标悬浮状态样式 */
+        .tab5-div a:hover {
+            /* 鼠标悬浮时背景色变为蓝色 */
+            background-color: #007bff;
+            /* 鼠标悬浮时文字颜色变为白色，增强对比度 */
+            color: white;
+        }
+    
+        #decodeUrlInput {
+            min-width: 500px;
+            /* 设置最小宽度为500px */
+            padding: 8px 12px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+    
+        #decodeUrlInput:focus {
+            border-color: #007bff;
+            /* 聚焦时边框变为蓝色 */
+        }
+    </style>
+
+
+<!-- 主要css样式 -->
+    <style>
+        #sao_tabs {
+            margin-left: 20%;
+            margin-right: 20%;
+            margin-top: 5%;
+            /* font-size: large; */
+           
+
+        }
+
+        #yulan {
+
+            color: rgb(3, 3, 3);
+            /* overflow: auto;  */
+            max-height: 400px;
+            /* 设置最大高度，超出时显示滚动条 */
+            width: 100%;
+            /* 宽度设置为100%，以适应其父容器 */
+            white-space: pre;
+            word-wrap: normal;
+            overflow-y: auto;
+            /* 允许X轴滚动 */
+            font-size: 12px;
+            overflow-x: auto;
+            font-family: consolas, 'Courier New', Courier, monospace;
+        }
+
+        /* -------------sao_tabs-1的样式表 */
+
+        #sao_tabs-1 {
+            /* background-color: #f0f0f0; */
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #sao_tabs-1 p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #sao_tabs-1 hr {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        /* #sao_tabs-1 label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+} */
+
+        #sao_tabs-1 input.sao_input {
+            width: 150px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        #dp_yufa {
+            color: brown;
+        }
+
+        #dp_bianliangming {
+            color: blue;
+            margin-left: 20px;
+            padding: 2px;
+        }
+
+        #dp_bianliangming:hover {
+
+            background-color: #77b0cc;
+            border-radius: 2px;
+
+        }
+
+
+        /* 预览表格的样式 */
+
+        #table_yulan {
+            width: 100%;
+            /* 表格宽度占据父元素的 100% */
+            border-collapse: collapse;
+            /* 合并表格边框，使边框线不重复 */
+            margin-top: 20px;
+            /* 上边距 */
+        }
+
+        /* 表格的标题行 */
+        #table_yulan th {
+            background-color: #f2f2f2;
+            /* 设置背景色 */
+            text-align: left;
+            /* 文本居左 */
+            padding: 10px;
+            /* 内边距 */
+            border: 1px solid #ccc;
+            /* 边框颜色 */
+        }
+
+        /* 表格数据单元格 */
+        #table_yulan td {
+            padding: 5px;
+            /* 内边距 */
+            border: 1px solid #ccc;
+            /* 边框颜色 */
+            max-width: 600px;
+            /* 最大宽度为200px */
+
+            text-overflow: ellipsis;
+            /* 溢出时显示省略号 */
+            ;
+            overflow: hidden;
+            /* 溢出时显示滚动条 */
+            ;
+            text-wrap-mode: wrap;
+
+        }
+
+
+        /* 表格行的背景色 */
+        #table_yulan tr:nth-child(even) {
+            background-color: #f9f9f9;
+            /* 每一行偶数行背景颜色 */
+        }
+
+        #table_yulan tr:hover {
+            background-color: #e6f7ff;
+            /* 鼠标悬停时，改变背景色 */
+        }
+
+        .sao_zhi_value {
+            color: #6d6f70;
+        }
+
+        .sao_zhi_value:hover {
+            color: #f61e1e;
+            transform: scale(1.2);
+        }
+
+        /* 骚神代码编辑器样式 */
+
+
+        #sao_tabs-3 {
+            display: flexbox;
+        }
+
+        #sao_textarea {
+
+            width: 100%;
+            height: 400px;
+            font-size: 12px;
+            font-family: consolas, 'Courier New', Courier, monospace;
+            margin-bottom: 5px;
+
+
+        }
+
+        .highlight_the_ele {
+            border: 2px solid blue;
+            background-color: red;
+            color: green;
+            transition: all 1s ease;
+        }
+    </style>
+</body>

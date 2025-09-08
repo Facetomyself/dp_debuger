@@ -1,0 +1,120 @@
+<head>   
+
+
+
+
+</head>
+
+<body>
+
+
+    <!-- <div class="some-element">Content</div> -->
+
+    <div class="floating-window" id="floatingWindow" >
+        <div class="title-bar" id="titleBar">固定信息浮窗(可拖动)<span class="close-btn" id="closeBtn">&nbsp;&nbsp;X</span></div>
+        <div id="float_content" class="content" style="user-select: text;"><span id="show">浏览器坐标 x:1560,y:375<br>屏幕坐标
+                x:1560,y:375
+                <hr>🔹按alt+2 复制鼠标处点击语法<br>
+                <hr>🔹按F9 捕捉当前位置元素到侧边栏
+                <hr>当前位置是非元素
+            </span></div>
+    </div>
+
+
+
+
+    <style>
+        body {
+            background-color: #6f4040;
+        }
+
+        /* 整体浮动窗口样式 */
+        .floating-window {
+            width: 350px;
+            background-color:rgb(237, 238, 238);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            overflow: hidden;
+            /* position: relative; */
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            font-family:'微软雅黑','consolas', 'Courier New', Courier, monospace;
+            
+        }
+        #floatingWindow {
+            position: fixed;   /* 使元素脱离文档流，固定在浏览器窗口 */
+            top: 300px;        /* 距离浏览器顶部 100px */
+            left: 100px;        /* 距离浏览器左侧 70px */
+            z-index: 999999;     /* 确保该元素位于其他元素之上 */
+        }
+
+        /* 标题栏样式 */
+        .title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0078d4;
+            color: #fff;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .title-bar .close-btn {
+            cursor: pointer;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            background: none;
+        }
+
+        /* 关闭按钮悬停效果 */
+        .title-bar .close-btn:hover {
+            color: #ff4747;
+        }
+
+        /* 内容区域样式 */
+        .content {
+            padding: 8px 0;
+            overflow: auto;
+        }
+
+        /* 每一项描述样式 */
+        .content p {
+            margin: 4px 0;
+            line-height: 1.4;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+
+        .content p b {
+            font-weight: bolder;
+        }
+
+        /* 分隔线样式 */
+        hr {
+            margin: 6px 0;
+            border: 0;
+            border-top: 1px solid #ddd;
+        }
+
+        /* 文字颜色 */
+        .content p {
+            color: #333;
+        }
+
+        .content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 悬浮效果 */
+        .floating-window:hover {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</body>

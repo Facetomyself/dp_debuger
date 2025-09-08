@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Example</title>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* background-color: #f0f0f0; */
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            padding: 20px 0;
+        }
+        form {
+            background-color: #fff;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        iframe{
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>🥝逆向Hook助手</h1>
+    <p id="iframe_res">....</p>
+    <iframe src="https://wxhzhwxhzh.github.io/hookbox/iframe2.html"  height="400"></iframe>
+    <hr>
+    <h1>点击选择你要hook的函数方法</h1>
+    <form id="sao_form">
+        <input type="checkbox" name="JSON.parse" >JSON.parse<br>
+        <input type="checkbox" name="JSON.stringify" >JSON.stringify<br>
+        <input type="checkbox" name="response.json" >response.json<br>
+        <input type="checkbox" name="response.text" >response.text<br>
+        <input type="checkbox" name="xhr" >xhr<br>
+   
+        <!-- <input type="submit" value="Submit"> -->
+    </form>
+    <!-- <button id="showConfig">显示HOOK清单</button> -->
+    <pre id="result"></pre>
+    <script src="./reverse/reverse.js"></script>
+
+
+</body>
+</html>

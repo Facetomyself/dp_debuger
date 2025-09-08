@@ -1,0 +1,143 @@
+<html>
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+    <meta name="viewport" />
+    <title>骚神 语法转换</title>
+
+    <link rel="stylesheet" href="convert/css/convert.css" />
+    <link rel="stylesheet" href="convert/css/convert2.css" />
+    <link rel="stylesheet" href="convert/css/jquery-ui.css" />
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <style>
+        .compact-button {
+            padding: 4px 8px;
+            /* 减少内边距 */
+            font-size: 12px;
+            /* 缩小字体 */
+            border-radius: 4px;
+            /* 圆角 */
+            border: 2px solid transparent;  /* 透明边框，保留按钮布局 */
+            /* 细边框 */
+            background-color: #f5f5f5;
+            /* 浅灰色背景 */
+            color: rgb(62, 61, 61);
+            /* 保持原有颜色 */
+            cursor: pointer;
+            /* 鼠标指针 */
+            transition: all 0.3s ease;
+            /* 平滑过渡效果 */
+        }
+    
+        .compact-button:hover {
+            background-color: #e0e0e0;
+            /* 鼠标悬停时变深 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* 添加阴影 */
+        }
+    
+        .compact-button:active {
+            transform: scale(0.95);
+            /* 点击时轻微缩小 */
+        }
+    </style>
+
+
+
+
+
+
+</head>
+
+<body>
+    <h4 style="font-style: italic; color: gray">
+        支持把python代码粘贴到控制台后回车反向查询 例如 eles("t:div")
+        <div id="xuanze_info2">元素面板中任意元素被选中时，自动解析语法</div>
+    </h4>
+    <h2 >Xpath语法</h2>
+    
+    <div class="input-container">
+        <input type="text" id="xpath_info2"  class="shurukuang_style"   placeholder="当元素被选中时自动解析语法" />
+        <button id="copyButton3">复制</button>     
+    </div>
+    <button id="xpathToPython0"  class="compact-button" >原生</button>
+    <button id="xpathToPython1"  class="compact-button" >tab.ele</button>
+    <button id="xpathToPython2"  class="compact-button" >tab.eles</button>
+    <button id="xpathToPython3"  class="compact-button" >tab.ele().click</button>
+    <hr>
+
+    <h2 id="zidingyi">DrissionPage语法</h2>
+    <div class="input-container">
+        <input type="text" id="xuanze_info" placeholder="当元素被选中时自动解析语法" />
+        <button id="copyButton2">复制</button>
+        <button id="reverse_search">反查</button>
+        <button id="temp_save">暂存</button>
+    </div>
+
+    <div id="xuanze" style="color: rgb(28, 19, 163)">自定义选择属性区</div>
+    <div id="option" style="color: rgb(28, 19, 163)">自定义</div>
+
+    <hr />
+    <h4>语法暂存区</h4>
+
+    <section class="tab">
+        <textarea id="sao_textarea" class="sao_wenbenyu" placeholder="把文件拖到本窗口可以查看文件内容"></textarea>
+    </section>
+
+    <a class="sao_a" id="opener">暂存语法</a><a class="sao_a">复制所有</a><a class="sao_a">清空所有</a>
+
+    <hr />
+
+    <!-- 对话框1 -->
+
+    <div id="dialog" title="暂存设置" style="background-color: rgb(204, 205, 208)">
+        <!-- 新增的用户名和密码输入框 -->
+        <div>
+            <br />
+            <label for="username">元素变量名</label>
+            <input type="text" id="ele_input" placeholder="默认是Element1" value="元素1"
+                style="width: 120px; height: 30px" />
+        </div>
+
+        <div></div>
+
+        <div>预览</div>
+        <div id="zancun_div" style="color: brown; font-size: larger">
+            未解析..
+        </div>
+
+        <p>是否确认暂存语法？</p>
+        <button id="sao_dialog_confirm">确认</button>
+        <button id="sao_dialog_cancel">取消</button>
+    </div>
+
+
+    <h2>
+        CSS 版
+        <button id="copy_css" style="font-weight: lighter; font-size: small">
+            复制下面语法
+        </button>
+    </h2>
+
+    <div id="css_content" style="font-size: medium">未解析..</div>
+    <hr />
+    <h2>JSON版</h2>
+    <div id="content">未解析..</div>
+    <hr />
+    <h2>完整版</h2>
+    <div id="convert" style="color: brown">未解析..</div>
+
+        
+    <script src="convert/convert.js"></script>
+    <script src="convert/convert2.js"></script>
+    <script src="convert/convert3.js"></script>
+    <script src="convert/convert_jquery.js"></script>
+
+</body>
+
+</html>

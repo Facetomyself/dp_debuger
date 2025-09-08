@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    background-color: #252526;
+    border-right: 1px solid #3a3a3c;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    color: #d4d4d4;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 10px 0;
+}
+
+.sidebar a {
+    color: #d4d4d4;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.sidebar a:hover {
+    color: #569cd6;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.content h1 {
+    color: #d4d4d4;
+}
+
+.code-block {
+    background-color: #2d2d30;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    font-family:  Courier, monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.code-block pre {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5; 
+    font-family: 'consolas', Courier, monospace;
+}
+.code-block:hover {
+    background-color: #3e3e44;
+}
+
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #569cd6;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background-color: #7da6cc;
+    
+}

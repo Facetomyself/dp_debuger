@@ -1,0 +1,113 @@
+/* 通用样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: '宋体', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+    padding: 13px;
+    font-size: 12px; /* 整体字体大小调整为12px */
+}
+
+h2 {
+    color: #4CAF50;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 26px; /* 标题字体大小减小 */
+}
+
+h3 {
+    color: #333;
+    margin-top: 10px;
+    font-size: 20px; /* 副标题字体大小减小 */
+}
+
+div {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #555;
+}
+
+#copy_btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px 1px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.normal_btn {
+    background-color: #8198d4;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px 1px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+ 
+
+/* coder数据区 */
+#coder {
+    background-color: #403f3f;
+    color: #c5c8c6;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 12px; /* JSON数据区字体大小调整为12px */
+    font-family: 'Consolas', 'Courier New', monospace; /* 使用Consolas字体 */
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+/* JSON数据区 */
+#log {
+    background-color: #1e1e1e;
+    color: #c5c8c6;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 12px; /* JSON数据区字体大小调整为12px */
+    font-family: 'Consolas', 'Courier New', monospace; /* 使用Consolas字体 */
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* 页面分隔线 */
+hr {
+    border: 1px solid #ddd;
+    margin: 30px 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
+    h2 {
+        font-size: 22px; /* 更小的标题字体 */
+    }
+
+    h3 {
+        font-size: 18px; /* 更小的副标题字体 */
+    }
+
+    pre, #log {
+        font-size: 12px; /* 在小屏幕设备上更小的字体 */
+    }
+}

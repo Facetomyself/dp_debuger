@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>骚神插件设置中心</title>
+    <link rel="stylesheet" href="./css/options.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    
+</head>
+<body>
+    <div class="container">
+        <h1> <span style="margin-bottom: 20px;padding-bottom: 10px;color: brown;">骚神插件设置中心</span></h1>
+        
+        <div class="tabs">
+            <button class="tab active" data-tab="settings">Settings</button>
+            <button class="tab" data-tab="advanced">Advanced</button>
+            <button class="tab" data-tab="exceptions">启动参数</button>
+            <button class="tab" data-tab="sync">Sync</button>
+            <button class="tab" data-tab="BrowserInfo">浏览器信息</button>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content active">
+            <div class="section">
+                <label class="checkbox">
+                    <input type="checkbox"> {{content}}{{message}}
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox"> Autofill active profile only
+                </label>
+            </div>
+            
+            <div class="section">
+                <label>Autofill delay:
+                    <input type="number" value="0.5" step="0.1" class="small-input"> sec
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox"> Randomize delay (±0.25 sec)
+                </label>
+            </div>
+
+            <div class="section">
+                <label>Form Fill Method:
+                    <label class="radio">
+                        <input type="radio" name="fill-method" checked> Overwrite
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="fill-method"> Append
+                    </label>
+                </label>
+            </div>
+        </div>
+
+        <!-- Advanced Tab -->
+        <div id="advanced" class="tab-content">
+            <div class="section">
+                <label>Back up text fields larger than:
+                    <input type="number" class="small-input"> chars
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox"> Debug mode
+                </label>
+            </div>
+
+            <div class="section">
+                <label>Custom Variables:
+                    <textarea rows="4" placeholder="Enter variables in format: \variable{value}"></textarea>
+                </label>
+            </div>
+        </div>
+
+        <!-- Exceptions Tab -->
+        <div id="exceptions" class="tab-content">
+            <div class="section">
+                <label class="checkbox" style="font-weight: bold;">浏览器启动代码最开始参数  
+                               
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox"> 无痕模式               
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox"> Debug端口
+                    <input type="text" placeholder="9222">
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox"> 浏览器文件路径
+                    <input type="text" placeholder="默认是谷歌">
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox"> 无图
+              </label>
+            </div>
+
+            <div class="section">
+                <label>Site Filters:
+                    <input type="text" placeholder="Domain (e.g. example.com)">
+                    <input type="text" placeholder="Path (e.g. /login)">
+                </label>
+            </div>
+        </div>
+
+        <!-- Sync Tab -->
+        <div id="sync" class="tab-content">
+            <div class="section">
+                <label>Auto-close infobar:
+                    <select>
+                        <option>After generating rules</option>
+                        <option>Immediately</option>
+                        <option>Never</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="section">
+                <label>Backup Interval:
+                    <input type="number" value="24" class="small-input"> hours
+                </label>
+                <label>Cloud Storage Path:
+                    <input type="text" placeholder="s3://your-bucket/path">
+                </label>
+            </div>
+        </div>
+
+        <!-- BrowserInfo Tab -->
+        <div id="BrowserInfo" class="tab-content">
+            <div class="section">
+               
+            </div>
+        </div>
+
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+          <button class="primary-btn">保存设置</button>
+          <button class="secondary-btn">恢复默认</button>
+          <button class="secondary-btn" id="refresh" style="color: brown;">刷新网页</button>
+      </div>
+
+    </div>
+    <script src="./js/options.js"></script>
+    <!-- <script type="module" src="./js/vue.esm-browser.js"></script> -->
+    <!-- <script type="module" src="./js/vue-options.js"></script> -->
+</body>
+</html>

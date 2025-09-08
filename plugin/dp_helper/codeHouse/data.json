@@ -1,0 +1,88 @@
+{
+  "snippets": 
+ 
+    [
+        {
+            "id": 1,
+            "title": "控制浏览器",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n\nfrom DrissionPage import Chromium\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium()  \n\n# 获取标签页对象并打开网址\ntab = browser.new_tab('https://www.baidu.com')\n\n\ninput('Press any key to quit')"
+        },
+        {
+            "id": 2,
+            "title": "浏览器启动配置",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n# 骚神DP教学\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n\nfrom DrissionPage import Chromium\nfrom DrissionPage import ChromiumOptions\n\n# 创建浏览器启动配置对象\noptions = ChromiumOptions()\n# 配置浏览器启动选项\noptions.set_browser_path(r'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe')  # 设置浏览器路径\noptions.ignore_certificate_errors() # 忽略证书错误\noptions.no_imgs()  # 禁用图片\noptions.headless(False)  # 无头模式\noptions.set_local_port(9696)  # 设置浏览器debug端口\n# 更多配置请参考 http://drissionpage.cn/browser_control/browser_options\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium(options)\n\n# 获取标签页对象并打开网址\ntab = browser.new_tab('https://www.baidu.com')\n\n\ninput('Press any key to quit')"
+        },
+        {
+            "id": 3,
+            "title": "操作标签页",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n\nfrom DrissionPage import Chromium\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium()  \n\n# 获取标签页对象并打开网址\n\ntab1 = browser.new_tab('https://www.baidu.com')\ntab2 = browser.new_tab('https://www.bing.com')\ntab3 = browser.latest_tab\n\nprint(tab1.title)\nprint(tab2.title)\nprint(tab3.title)\nprint(browser.latest_tab.title)\n\nbrowser.latest_tab.close()  # 关闭最新的标签页\n\n\n# 标签页没有Selenium所谓的焦点的概念，多个标签页可以并行操作，所以可以多线程同时打开多个标签页\n\n\nfrom concurrent.futures import ThreadPoolExecutor\n\n\ndef open_url(browser,url): \n    \n    browser.new_tab(url)\n\nchinese_websites = [\n    \"https://www.taobao.com\",     # 淘宝\n    \"https://www.tmall.com\",      # 天猫\n    \"https://www.jd.com\",          # 京东\n]\n\n# 使用线程池\nwith ThreadPoolExecutor(max_workers=3) as executor:\n    for url in chinese_websites:\n        executor.submit(open_url, browser,url)\n\n\ninput('请按任意键继续')"
+        },
+        {
+            "id": 4,
+            "title": "元素定位之普通定位",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n# 骚神网 https://wxhzhwxhzh.github.io/saossion_code_helper_online/\n\nfrom DrissionPage import Chromium\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium()  \n\n# 获取标签页对象并打开网址\ntab = browser.new_tab('https://www.baidu.com')\n\nwenku_button=tab.ele('文库')  #最简单\nwenku_button.click()\n\n\ninput_box=tab.ele('@id=kw') #最常用\ninput_box.input('1234')\n\n\nsearch_button=tab.ele('tag:input@@type=submit@@id=su@@value=百度一下')  #最精确\nsearch_button.click()"
+        },
+        {
+            "id": 5,
+            "title": "元素定位之iframe定位",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n# 骚神网 https://wxhzhwxhzh.github.io/saossion_code_helper_online/\n\nfrom DrissionPage import Chromium\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium()  \n\n# 获取标签页对象并打开网址\ntab = browser.new_tab('https://drissionpage.cn/demos/iframe_diff_domain.html')\n\n\niframe = tab.get_frame('t:iframe') #最规范\nele = iframe.ele('网易首页')\nprint(ele)\n\n\niframe = tab.ele('t:iframe') #最简洁\n\nele = iframe('网易首页')\nprint(ele)\n\n\niframe = tab.eles('t:iframe')[0]  # 成功率最高\nele = iframe('网易首页')\nprint(ele)"
+        },
+        {
+            "id": 6,
+            "title": "元素定位之shadow root定位",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n# 骚神网 https://wxhzhwxhzh.github.io/saossion_code_helper_online/\n\nfrom DrissionPage import Chromium\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium()  \n\n# 获取标签页对象并打开网址\n\ntab = browser.new_tab('https://spiderapi.cn/captcha/turnstile-managed/')\n\n不知名的p=tab.ele('@id=cf-wait')\n不知名的div=不知名的p.after(1)\nprint(不知名的div.html)\n\n\niframe_ele=不知名的div.sr(\"t:iframe\")\nprint(iframe_ele)"
+        },
+        {
+            "id": 7,
+            "title": "元素定位之Xpath定位",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n\nfrom DrissionPage import Chromium\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium()  \n\n# 获取标签页对象并打开网址\ntab = browser.new_tab('https://ahrefs.com/backlink-checker/?input=baidu.com&mode=subdomains')\n\nxpath ='x://*[@id=\"root\"]/div[1]/section[1]/div/div/div/div/div/div[2]/div[2]/div[2]/form/div[1]/div/div'\n\ndiv元素=tab.ele(xpath)\nprint(div元素)\n\ninput('Press any key to quit')"
+        },
+        {
+            "id": 8,
+            "title": "提取元素信息",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n\nfrom DrissionPage import Chromium\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium()  \n\n# 获取标签页对象并打开网址\ntab = browser.new_tab('https://baidu.com/')\n\nAI助手元素=tab.ele('@id=csaitab')\n\nprint(AI助手元素.text)\nprint(AI助手元素.link)\nprint(AI助手元素.attr(\"class\"))\nprint(AI助手元素.html)\n\n\nprint(AI助手元素.rect.viewport_midpoint)# 视口坐标\nprint(AI助手元素.rect.screen_location)  # 屏幕坐标\n\n\nbaidu_logo = tab.ele('@id=s_lg_img')  \nbaidu_logo.save(name='baidu_logo')  # 保存图片元素到当前目录下\n\n\ninput('Press any key to quit')"
+        },
+        {
+            "id": 9,
+            "title": "鼠标操作验证码",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n\nfrom DrissionPage import Chromium,ChromiumOptions\n\noptions=ChromiumOptions().use_system_user_path()\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium(options)\n\n# 获取标签页对象并打开网址\ntab = browser.new_tab('https://dun.163.com/trial/sense')\n\ntab.wait(1)\n\tab.ele('可疑用户-滑动拼图').click()\n\n\tab.ele('点击完成验证').click()\n\n\n滑块_xpath='x:/html/body/main/div[1]/div/div[2]/div[2]/div[1]/div[2]/div[1]/div/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div[2]'\n滑块=tab.ele(滑块_xpath)\n\n平移距离=676-526  # 计算滑块平移距离\n\tab.actions.move_to(滑块).hold(滑块).move(offset_x=平移距离,offset_y=4,duration=2.5).release()  # 执行滑动操作\n\ninput('请按回车键继续')"
+        },
+        {
+            "id": 10,
+            "title": "数据监听和抓包",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n\nfrom DrissionPage import Chromium,ChromiumOptions\nfrom pprint import pprint\n\noptions=ChromiumOptions()\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium(options)\n\n\t\t\ntab=browser.latest_tab\n\t\ntab.listen.start('spa1.scrape.center/api/movie')  # 开始监听，指定获取包含该文本的数据包,    注意：要先开启监听再打开对应的页面\n\n\t\ntab.get('https://spa1.scrape.center/')  # 访问网址，这行产生的数据包不监听\n\n\n\nfor packet in tab.listen.steps():\n    pprint(packet.response.body)  # 打印数据包url\n   \n\n\n\ninput('请按回车键继续')"
+        },
+        {
+            "id": 11,
+            "title": "多线程操作标签页",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\nfrom DrissionPage import Chromium, ChromiumOptions\nfrom pprint import pprint\nimport threading\nimport concurrent.futures\n\n# 设置Chromium浏览器选项，使用系统用户路径\nco = ChromiumOptions().use_system_user_path()\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium(co)\n\n# 获取标签页对象并打开目标网址\n\t\ntab_instance = browser.new_tab('https://xiaoaojianghu.chibaba.cn/')\n\n# XPath定位到章节列表的无序列表\nchapters_xpath = 'x:/html/body/div[2]/div[3]/div[1]/ul'\nchapter_dict = {}\n\n# 从网页中提取章节标题和链接\nfor chapter in tab_instance(chapters_xpath).eles('t:a@@rel=nofollow'):\n    chapter_dict[chapter.text] = chapter.link\n\n# 打印提取到的章节字典\npprint(chapter_dict)\nlist_chapter = list(chapter_dict.keys())\n\n\n\ndef fetch_and_save_chapter(chapter_title, chapter_url):\n    \n    new_tab = browser.new_tab(chapter_url)  # 打开章节链接\n    chapter_content = new_tab('@id=TextContent').text  # 获取章节内容\n    print(chapter_content)\n\n    print(f\"正在下载笑傲江湖 {chapter_title}\")\n    tab_instance.wait(1)\n\n    # 将章节内容写入文件\n    with open(f'./笑傲江湖_{chapter_title}.txt', 'w', encoding='utf-8') as file:\n        file.write(chapter_content)\n    \n    # threading.Thread(target=new_tab.close).start()  # 关闭新标签页\n    new_tab.close()\n\n#- 单线程\n\n\n# for aa in  list_chapter:\n#     fetch_and_save_chapter(aa, chapter_dict[aa])\n\n\n#- 多线程\n\ndef main():\n    # 创建一个线程池，最多允许 4 个线程同时运行\n    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:\n        # 提交多个任务到线程池\n        futures = [executor.submit(fetch_and_save_chapter, chapter_title, chapter_url) \n                   for chapter_title, chapter_url in chapter_dict.items()]\n\nif __name__ == \"__main__\":\n    main()\n    input(\"按下回车键退出\")"
+        },
+        {
+            "id": 12,
+            "title": "控制浏览器插件",
+            "language": "python",
+            "code": "#!/usr/bin/env python\n# -*- coding:utf-8 -*-# \n\n# 骚神DP教学\n# 电脑内需要提取安装谷歌浏览器或者其他chromium内核的浏览器-\n# Drissionpage官网  http://drissionpage.cn/\n# Drissionpage 版本需要大于等于 4.1.0.0\n\nfrom DrissionPage import Chromium,ChromiumOptions\n\noptions=ChromiumOptions().add_extension(r'C:UsersAdministratorDesktop插件Proxy SwitchyOmega 2.5.21')    # 插件下载  https://www.crxsoso.com/\n\n# 连接浏览器并获取浏览器对象\nbrowser = Chromium(options)\n\n# 获取标签页对象并打开网址\ntab = browser.new_tab('https://www.baidu.com/')\n\n\n\n\t\ntab.wait(3)\n插件url='chrome-extension://padekgcemlokbadohgkifijomclgjgif/options.html'\n\n\t\ntab.get(插件url)\n\n\t\ntab.ele(' 通用').click()\n\t\ntab.ele('新建情景模式…').click()\n\t\ntab.ele('PAC情景模式').click()\n\n\ninput('请按回车键继续')"
+        },
+        {
+            "id": 13,
+            "title": "获取所有标签信息（page，扩展）",
+            "language": "python",
+            "code": "tab_info_list = tab3.run_cdp('Target.getTargets').get('targetInfos');\nfor i in tab_info_list:\n    if i.get('type') == 'page':\n        id = i.get('targetId');\n        print(i);\n        # 标签页信息\n        tt = tab3.run_cdp('Target.getTargetInfo', targetId=id);\n        pprint(tt);\n        # 窗口形状\n        yy = tab3.run_cdp('Browser.getWindowForTarget', targetId=id);\n        pprint(yy);\n        print('----------------');"   
+             }
+        
+  ]
+}
+
+
+

@@ -1,0 +1,54 @@
+.dropdown-content {
+    padding: 12px 16px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 220px;
+    border: 1px solid #e0e0e0;
+}
+
+.dropdown-option {
+    /* 结构保持不变 */
+    padding: 8px 12px;
+}
+
+.dropdown-option:hover {
+    background: #f8f9fa;
+}
+
+.checkmark {
+    background: #ffffff;
+    border: 2px solid #ced4da;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.checkbox:checked ~ .checkmark {
+    background: #4dabf7;
+    border-color: #4dabf7;
+}
+
+.checkmark::after {
+    border-color: white;
+}
+
+.option-text {
+    color: #495057;
+    font-weight: 400;
+}
+
+.extension-input {
+    border: 1px solid #dee2e6;
+    background: #f8f9fa;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+/* 增加状态反馈 */
+.checkbox:focus ~ .checkmark {
+    box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.2);
+}
+
+.dropdown-option:active {
+    background: #f1f3f5;
+}

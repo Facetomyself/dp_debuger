@@ -1,0 +1,70 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_manifest_name__",
+  "version": "9.7.0",
+  "description": "__MSG_manifest_description__",
+  "author": "Saossion",
+  "default_locale": "zh_CN",
+
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "webRequest",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage",
+    "activeTab",
+    "scripting",
+    "sidePanel",
+    "cookies",
+    "windows"
+    
+  ],
+  "icons": {
+    "128": "img/saoshen2.png",
+    "48": "img/saoshen2.png",
+    "19": "img/saoshen2.png"
+  },
+  
+  "content_scripts": [
+    {
+
+      "matches": ["<all_urls>"],
+      "js": ["js/jquery-3.7.1.min.js", "js/jquery-ui.js","content.js", "content4.js", "content5.js","content6.js"],
+      "css": ["css/content.css","css/content2.css", "css/jquery-ui.css"],
+      "run_at": "document_end",
+      "all_frames": true
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-before.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": ["js/inject.js", "*","devtool/*","devtool/convert/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "homepage_url": "https://wxhzhwxhzh.github.io/sao/",
+
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "devtools_page": "devtool.html",
+  "options_page": "options.html"
+  
+
+
+
+  
+}

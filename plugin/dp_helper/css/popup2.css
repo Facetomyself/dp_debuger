@@ -1,0 +1,186 @@
+/* 基本样式重置 */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    
+}
+
+/* 页面容器样式 */
+.container {
+    width: 310px;
+    margin: 5px auto;
+    /* background-color: #f0f0f0; */
+    background-color: #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    border-radius: 5px;
+}
+
+/* Logo样式 */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 100px;
+    margin-right: 10px;
+}
+
+.logo h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* 分割线样式 */
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+/* 输入框样式 */
+.search_input {
+    padding: 8px;
+    font-size: 14px;
+    /* border: 1px solid #ccc; */
+    border-radius: 4px 0px 0px 4px;
+    width: calc(100% - 100px);
+    margin: 0px;
+    border: none;
+}
+
+/* 查询按钮样式 */
+.search {
+    padding: 7px 15px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    /* border-radius: 3px; */
+    cursor: pointer;
+    margin: 0px;
+    border-radius: 0px 4px 4px 0px;
+}
+
+
+
+.search:hover {
+    background-color: #0056b3;
+}
+
+/* 链接样式 */
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 页面底部文字样式 */
+p {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 新标签打开链接样式 */
+#myLink {
+    font-size: 14px;
+    color: #007bff;
+    display: block;
+    margin-top: 10px;
+}
+
+#myLink:hover {
+    text-decoration: underline;
+}
+
+.no_border_div {
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    display: flex; /* 将容器设置为弹性盒子 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+
+/* 获取完整版cookies */
+
+/* 控制表单的样式 */
+#control-row {
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 230px;
+}
+
+/* 标签样式 */
+#control-row label {
+    font-size: 12px;
+    margin-bottom: 2px;
+    display: block;
+    color: #444;
+}
+
+/* 输入框样式 */
+#input {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none; /* 去除输入框中的下划线 */
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* 去除浏览器拼写检查 */
+#input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* 按钮样式 */
+#go {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#go:hover {
+    background-color: #0056b3;
+}
+
+
+/* 消息区域的样式 */
+#message {
+    display: none;
+    margin-top: 10px;
+    padding: 6px;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 4px;
+}
+
+#message.error {
+    background-color: #dc3545;  /* 错误时显示红色 */
+}
+
+#message.success {
+    background-color: #28a745;  /* 成功时显示绿色 */
+}

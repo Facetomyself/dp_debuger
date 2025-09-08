@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard mouse logger</title>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="key_mouse/key_mouse.css">
+</head>
+
+<body>
+    <h2>🐭键鼠轨迹动作记录器</h2>   
+
+
+    <h3>代码区:
+        <span style="font-size: x-small;">(请将devtool切换为独立窗口模式，并将浏览器收藏栏收起，否则记录轨迹可能不准确)</span>
+
+        <button id="start_btn" class="normal_btn">开始录制</button>
+        <button id="copy_btn">复制下面代码</button>
+    </h3>
+    <pre id="coder" placeholder="请将devtool切换为独立窗口模式，否则记录轨迹可能不准确"></pre>
+    <hr>
+    <h3>JSON数据区:</h3>
+    <pre id="log"></pre>
+
+    <script src="key_mouse/key_mouse1.js"></script>
+</body>
+
+</html>

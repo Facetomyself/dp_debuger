@@ -1,0 +1,95 @@
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px; /* 缩小顶部间距 */
+    }
+
+    .copy-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px; /* 减少组间距 */
+        width: 100%;
+        max-width: 600px; /* 减小最大宽度 */
+    }
+
+    label {
+        font-size: 14px; /* 减小字体大小 */
+        margin-right: 8px; /* 减少右侧间距 */
+        width: 120px; /* 缩小标签宽度 */
+        text-align: right;
+    }
+
+    input[type="text"] {
+        flex-grow: 1;
+        padding: 6px; /* 缩小内边距 */
+        font-size: 12px; /* 减小字体大小 */
+        border: 1px solid #ccc;
+        border-radius: 4px; /* 减小圆角 */
+        min-width: 100px;
+        max-width: 600px; /* 减小最大宽度 */
+        transition: width 0.3s ease-in-out;
+        outline: none;
+    }
+
+    input[type="text"]:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    button {
+        padding: 6px 10px; /* 缩小按钮内边距 */
+        font-size: 10px; /* 减小字体大小 */
+        margin-left: 8px; /* 缩小左侧间距 */
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px; /* 减小圆角 */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    button:focus {
+        outline: none;
+    }
+</style>
+
+
+<div class="container">
+    
+    <h2 >✔️捕获鼠标处的元素语法</h2>
+    
+    <div class="copy-group">
+        <label for="textInput1">坐标语法：</label>
+        <input type="text" id="textInput1" placeholder="未生成...">
+        <button id="copyBtn1">复制</button>
+    </div>
+    <div class="copy-group">
+        <label for="textInput2">XPath语法：</label>
+        <input type="text" id="textInput2" placeholder="未生成...">
+        <button id="copyBtn2">复制</button>
+        <button id="copyAddBtn2">加x:复制</button>
+    </div>
+    <div class="copy-group">
+        <label for="textInput3">DP精简语法：</label>
+        <input type="text" id="textInput3" placeholder="未生成...">
+        <button id="copyBtn3">复制</button>
+        <button id="DeduplicationBtn">筛选</button>
+    </div>
+    <div class="copy-group">
+        <label for="textInput3">其他功能：</label>
+        
+        <button id="copyHistory2" style="background-color: brown;">元素复制历史</button>
+    </div>
+
+
+</div>
+
+    
+    <div class="toast" id="toast">.....</div>
