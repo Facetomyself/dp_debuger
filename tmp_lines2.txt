@@ -1,0 +1,29 @@
+142:     def start(self) -> None:
+143:         logger.info('启动浏览�?..')
+144:         self.browser = Chromium(self._create_options())
+145:         self.tab = self.browser.latest_tab
+146:         logger.info('浏览器就�?)
+147: 
+148:     def open(self, url: str, wait: float = 1.0) -> None:
+149:         logger.info('打开页面: %s', url)
+150:         self.tab.get(url)
+151:         if wait > 0:
+152:             time.sleep(wait)
+153:         logger.info('页面标题: %s', self.tab.title)
+154: 
+155:     def inject_js_modules(self) -> None:
+156:         files = ['module_manager.js', 'debug_utils.js', 'cookie_monitor.js', 'scroll.js']
+157:         chunks = []
+158:         for fname in files:
+159:             path = os.path.join(JS_DIR, fname)
+160:             if os.path.exists(path):
+161:                 with open(path, 'r', encoding='utf-8') as f:
+162:                     code = f.read()
+163:                     chunks.append('\n/* ' + fname + ' */\n' + code + '\n')
+164:                     logger.info('加载 JS 模块: %s (%d 字符)', fname, len(code))
+165:             else:
+166:                 logger.info('JS 模块缺失: %s', fname)
+167:         if chunks:
+168:             script = '\n'.join(chunks)
+169:             self.tab.run_js(script)
+170:             logger.info('已注�?JS 模块')

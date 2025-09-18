@@ -1,32 +1,39 @@
-// ===== 页面滚动辅助工具 =====
-// 功能：平滑滚动到指定元素位置
-// 适用场景：需要自动滚动到某个元素（如验证码、按钮等）时使用
+// 页面滚动辅助工具（无表情符、结构化日志）
+(function () {
+    'use strict';
 
-// 查找目标元素
-const captchaDiv = document.querySelector('.\\66 unction');
+    function ts() { return new Date().toISOString(); }
+    function log(msg) { console.log(ts() + ' [DP_SCROLL] ' + msg); }
+    function warn(msg) { console.warn(ts() + ' [DP_SCROLL] ' + msg); }
 
-// 获取元素位置信息
-const rect = captchaDiv.getBoundingClientRect();
+    if (window.DP_SCROLL) { return; }
 
-// 计算目标滚动位置
-const target = rect.top + window.scrollY;
-
-// 获取当前滚动位置
-let current = window.scrollY;
-
-// 设置滚动参数
-const step = 5;        // 每次滚动距离（像素）
-const interval = 5;    // 滚动间隔时间（毫秒）
-
-// 创建平滑滚动定时器
-const scrollInterval = setInterval(() => {
-    // 检查是否还未到达目标位置
-    if (current < target) {
-        // 继续向下滚动
-        current += step;
-        window.scrollTo(0, current); // 滚动到新位置（保持水平位置不变）
-    } else {
-        // 已到达或超过目标位置，停止滚动
-        clearInterval(scrollInterval); // 清除定时器，停止滚动
+    function smoothScrollToElement(el, options) {
+        try {
+            options = options || {};
+            var offset = Number(options.offset || 0);
+            var behavior = options.behavior || 'smooth';
+            var rect = el.getBoundingClientRect();
+            var y = Math.max(0, rect.top + window.pageYOffset + offset);
+            window.scrollTo({ top: y, behavior: behavior });
+            log('Scrolled to element. top=' + y + ' behavior=' + behavior);
+            return true;
+        } catch (e) { warn('smoothScrollToElement failed: ' + e); return false; }
     }
-}, interval);
+
+    window.DP_SCROLL = {
+        to: function (selector, options) {
+            var el = (typeof selector === 'string') ? document.querySelector(selector) : selector;
+            if (!el) { warn('Element not found for selector: ' + selector); return false; }
+            return smoothScrollToElement(el, options);
+        },
+        toId: function (id, options) {
+            var el = document.getElementById(id);
+            if (!el) { warn('Element not found by id: ' + id); return false; }
+            return smoothScrollToElement(el, options);
+        }
+    };
+
+    log('Scroll utilities ready');
+})();
+

@@ -1,149 +1,134 @@
-// DrissionPage 调试工具 - 调试辅助脚本
-// 包含 DOM 监听器、XHR 拦截器等功能
-
-(function() {
+// DrissionPage 调试工具（无表情符、结构化日志）
+(function () {
     'use strict';
 
-    console.log('🔧 [DP_DEBUG] 调试工具模块已加载');
+    function ts() { return new Date().toISOString(); }
+    function info(msg) { console.log(ts() + ' [DP_DEBUG] ' + msg); }
+    function warn(msg) { console.warn(ts() + ' [DP_DEBUG] ' + msg); }
+    function error(msg) { console.error(ts() + ' [DP_DEBUG] ' + msg); }
+
+    if (window.DP_DEBUG) { return; }
 
     // 创建全局调试对象
     window.DP_DEBUG = {
-        // 获取所有Cookie
-        getAllCookies: function() {
-            return document.cookie;
-        },
+        domObserver: null,
+        performanceInterval: null,
 
-        // 获取LocalStorage
-        getLocalStorage: function() {
+        getAllCookies: function () { return document.cookie; },
+
+        getLocalStorage: function () {
             var items = {};
-            for (var i = 0; i < localStorage.length; i++) {
-                var key = localStorage.key(i);
-                items[key] = localStorage.getItem(key);
-            }
+            try {
+                for (var i = 0; i < localStorage.length; i++) {
+                    var key = localStorage.key(i);
+                    items[key] = localStorage.getItem(key);
+                }
+            } catch (e) { warn('getLocalStorage failed: ' + e); }
             return items;
         },
 
-        // 获取SessionStorage
-        getSessionStorage: function() {
+        getSessionStorage: function () {
             var items = {};
-            for (var i = 0; i < sessionStorage.length; i++) {
-                var key = sessionStorage.key(i);
-                items[key] = sessionStorage.getItem(key);
-            }
+            try {
+                for (var i = 0; i < sessionStorage.length; i++) {
+                    var key = sessionStorage.key(i);
+                    items[key] = sessionStorage.getItem(key);
+                }
+            } catch (e) { warn('getSessionStorage failed: ' + e); }
             return items;
         },
 
-        // XHR请求拦截器
-        interceptXHR: function() {
-            var originalOpen = XMLHttpRequest.prototype.open;
-            XMLHttpRequest.prototype.open = function(method, url) {
-                console.log('[XHR] ' + method + ' ' + url);
-                this.addEventListener('load', function() {
-                    console.log('[XHR Response] ' + this.responseURL + ' Status: ' + this.status);
-                });
-                return originalOpen.apply(this, arguments);
-            };
-            console.log('🌐 [DP_DEBUG] XHR拦截器已启动');
+        // XHR 拦截
+        interceptXHR: function () {
+            try {
+                var originalOpen = XMLHttpRequest.prototype.open;
+                XMLHttpRequest.prototype.open = function (method, url) {
+                    info('[XHR] ' + method + ' ' + url);
+                    this.addEventListener('load', function () {
+                        info('[XHR_RESPONSE] ' + this.status + ' ' + this.responseURL);
+                    });
+                    return originalOpen.apply(this, arguments);
+                };
+                info('XHR interceptor enabled');
+            } catch (e) { error('interceptXHR failed: ' + e); }
         },
 
-        // DOM变化监听器
-        startDOMObserver: function() {
-            if (this.domObserver) {
-                console.log('👁️ [DP_DEBUG] DOM监听器已在运行');
-                return;
-            }
+        // fetch 拦截
+        interceptFetch: function () {
+            try {
+                if (!window.fetch) { warn('fetch not available'); return; }
+                var _fetch = window.fetch;
+                window.fetch = function () {
+                    var args = Array.prototype.slice.call(arguments);
+                    var input = args[0];
+                    var init = args[1] || {};
+                    var method = (init && init.method) || 'GET';
+                    var url = (typeof input === 'string') ? input : (input && input.url) || '';
+                    info('[FETCH] ' + method + ' ' + url);
+                    return _fetch.apply(this, args).then(function (resp) {
+                        try { info('[FETCH_RESPONSE] ' + resp.status + ' ' + (resp.url || url)); } catch (_) {}
+                        return resp;
+                    });
+                };
+                info('Fetch interceptor enabled');
+            } catch (e) { error('interceptFetch failed: ' + e); }
+        },
 
-            this.domObserver = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.type === 'childList') {
-                        mutation.addedNodes.forEach(function(node) {
-                            if (node.nodeType === Node.ELEMENT_NODE) {
-                                const tagName = node.tagName ? node.tagName.toLowerCase() : '';
-                                const className = node.className || '';
-                                const id = node.id || '';
-                                const currentTime = new Date().toLocaleTimeString();
-
-                                // 只记录重要的DOM变化
-                                if (tagName === 'div' || tagName === 'span' || tagName === 'p' ||
-                                    className.includes('message') || className.includes('chat') ||
-                                    className.includes('comment')) {
-                                    console.log('[DOM] ' + currentTime + ' - ' + tagName +
-                                              (id ? '#' + id : '') +
-                                              (className ? '.' + className : '') +
-                                              ' - ' + (node.textContent || '').substring(0, 100));
-                                }
-                            }
-                        });
+        // DOM 变化监听
+        startDOMObserver: function () {
+            if (this.domObserver) { info('DOM observer already running'); return; }
+            try {
+                var obs = new MutationObserver(function (mutations) {
+                    for (var i = 0; i < mutations.length; i++) {
+                        var mu = mutations[i];
+                        if (mu.type === 'childList' && mu.addedNodes && mu.addedNodes.length) {
+                            info('[DOM] added ' + mu.addedNodes.length + ' node(s)');
+                        }
                     }
                 });
-            });
-
-            // 开始观察整个文档
-            try {
-                this.domObserver.observe(document.body, {
-                    childList: true,
-                    subtree: true,
-                    attributes: false
-                });
-                console.log('👁️ [DP_DEBUG] DOM监听器已启动');
-            } catch (e) {
-                console.error('❌ [DP_DEBUG] DOM监听器启动失败:', e);
-            }
+                obs.observe(document.documentElement || document.body, { childList: true, subtree: true });
+                this.domObserver = obs;
+                info('DOM observer started');
+            } catch (e) { error('startDOMObserver failed: ' + e); }
         },
 
-        // 停止DOM监听器
-        stopDOMObserver: function() {
-            if (this.domObserver) {
-                this.domObserver.disconnect();
-                this.domObserver = null;
-                console.log('🛑 [DP_DEBUG] DOM监听器已停止');
-            }
+        stopDOMObserver: function () {
+            if (this.domObserver) { this.domObserver.disconnect(); this.domObserver = null; info('DOM observer stopped'); }
         },
 
-        // 获取页面统计信息
-        getPageStats: function() {
+        getPageStats: function () {
             return {
                 url: window.location.href,
                 title: document.title,
-                cookiesCount: document.cookie.split(';').length,
-                localStorageCount: localStorage.length,
-                sessionStorageCount: sessionStorage.length,
-                scriptsCount: document.scripts.length,
-                linksCount: document.links.length,
-                imagesCount: document.images.length
+                cookiesCount: (document.cookie || '').split(';').filter(function (s) { return s.trim(); }).length,
+                localStorageCount: (function(){ try { return localStorage.length; } catch (_) { return 0; } })(),
+                sessionStorageCount: (function(){ try { return sessionStorage.length; } catch (_) { return 0; } })(),
+                scriptsCount: (document.scripts || []).length,
+                linksCount: (document.links || []).length,
+                imagesCount: (document.images || []).length
             };
         },
 
-        // 页面性能监控
-        startPerformanceMonitor: function() {
-            if (this.performanceInterval) {
-                console.log('📊 [DP_DEBUG] 性能监控已在运行');
-                return;
-            }
-
-            this.performanceInterval = setInterval(function() {
-                const memory = performance.memory;
-                const timing = performance.timing;
-                const now = new Date().toLocaleTimeString();
-
-                console.log('[PERF] ' + now +
-                          ' | Memory: ' + Math.round(memory.usedJSHeapSize / 1024 / 1024) + 'MB' +
-                          ' | Load: ' + (timing.loadEventEnd - timing.navigationStart) + 'ms');
-            }, 5000);
-
-            console.log('📊 [DP_DEBUG] 性能监控已启动');
+        startPerformanceMonitor: function (intervalMs) {
+            if (this.performanceInterval) { info('Performance monitor already running'); return; }
+            var step = Math.max(1000, Number(intervalMs) || 5000);
+            var self = this;
+            this.performanceInterval = setInterval(function () {
+                try {
+                    var timing = (performance && performance.timing) || {};
+                    var mem = (performance && performance.memory) || {};
+                    info('[PERF] usedJSHeapMB=' + (mem.usedJSHeapSize ? Math.round(mem.usedJSHeapSize / 1048576) : 'n/a') +
+                         ' load=' + (timing.loadEventEnd && timing.navigationStart ? (timing.loadEventEnd - timing.navigationStart) : 'n/a') + 'ms');
+                } catch (e) { warn('perf read failed: ' + e); }
+            }, step);
+            info('Performance monitor started');
         },
 
-        // 停止性能监控
-        stopPerformanceMonitor: function() {
-            if (this.performanceInterval) {
-                clearInterval(this.performanceInterval);
-                this.performanceInterval = null;
-                console.log('🛑 [DP_DEBUG] 性能监控已停止');
-            }
+        stopPerformanceMonitor: function () {
+            if (this.performanceInterval) { clearInterval(this.performanceInterval); this.performanceInterval = null; info('Performance monitor stopped'); }
         }
     };
 
-    console.log('✅ [DP_DEBUG] 调试工具模块初始化完成');
-
+    info('Debug utilities ready');
 })();
+
