@@ -1,231 +1,69 @@
-# DrissionPage 逆向调试工具集
+# DrissionPage 逆向调试与调试辅助
 
-一个强大的网页自动化和逆向工程调试工具集，基于 DrissionPage 框架，支持网络监听、插件扩展、Cloudflare绕过等高级功能。
+基于 DrissionPage 的网页自动化与逆向调试辅助工具。提供可插拔的 JS 注入、控制台日志采集、网络抓包（JSONL）等能力，默认入口为 `dp_debug.py`，无需 PowerShell 启动脚本。
 
-## 🚀 核心功能
+## 环境与安装
+- 要求：Windows 10/11、Python 3.8+、已安装 Chrome/Edge/Chromium（自动探测，或通过环境变量 `DP_CHROME` 指定路径）。
+- 安装依赖：`pip install DrissionPage`
 
-### 逆向调试功能
-- 🔍 **网络监听**：实时捕获和分析所有网络请求/响应
-- 📊 **数据包分析**：自动解析并保存网络数据包
-- 🎯 **Cookie监控**：跟踪所有Cookie操作和变化
-- 📝 **控制台日志**：捕获浏览器控制台输出
-- 🌐 **DOM监听**：实时监控页面元素变化
+## 快速开始
+```powershell
+python dp_debug.py --url https://example.com --listen --log-level INFO
+```
+- 常用选项：
+  - `--headless`（无头）、`--devtools`（自动打开 DevTools）、`--user-data-dir <目录>`、`--proxy http://127.0.0.1:7890`
+  - `--inject/--no-inject` 控制 JS 模块注入；`--js a.js,b.js` 注入额外 JS（相对 `js/` 或绝对路径）
+  - `--listen` 启用网络抓包；`--listen-patterns http,ws` 指定类型；`--save-network data\packets.jsonl` 指定输出文件
 
-### 插件系统
-- 🔧 **AntiDebug Breaker**：绕过网站的反调试机制
-- 🛠️ **DP Helper**：强大的开发者工具扩展
-- 📦 **模块化设计**：支持自定义插件开发
+## 网络抓包（可配细节）
+- 过滤：`--net-include "api.example.com,/\/login\//"`，`--net-exclude "static.example.com"`
+- 类型过滤：`--net-content-types "application/json,text/plain"`
+- 内容控制：`--net-headers/--no-net-headers`，`--net-bodies/--no-net-bodies`（默认不抓取 body）
+- 截断：`--max-body-chars 4096`（超过部分以 `...[TRUNCATED]` 标记）
+- 脱敏：`--redact-headers "authorization,proxy-authorization,cookie,set-cookie"`
 
-### 高级特性
-- 🎮 **自动化脚本**：支持复杂的网页自动化操作
-- 📈 **数据导出**：多种格式的数据保存和导出
-- 🛡️ **异常处理**：完善的错误恢复机制
-- 🔄 **多线程处理**：支持并发任务执行
-
-## 📦 安装说明
-
-### 环境要求
-- Python 3.7+
-- Windows 10/11
-- Chrome/Chromium 浏览器
-
-### 快速安装
-
-1. **克隆项目**
-```bash
-git clone https://github.com/Facetomyself/dp_debuger
-cd DrissionPage
+示例：
+```powershell
+python dp_debug.py --listen --net-bodies --max-body-chars 8192 `
+  --net-include api.example.com --net-content-types application/json `
+  --save-network data\network_packets.jsonl
 ```
 
-2. **创建虚拟环境**
-```bash
-# 使用conda
-conda create -n drissionpage python=3.9
-conda activate drissionpage
-
-# 或使用venv
-python -m venv venv
-venv\Scripts\activate  # Windows
-```
-
-3. **安装依赖**
-```bash
-# 安装DrissionPage
-pip install DrissionPage
-
-# 或从源码安装（推荐）
-pip install git+https://github.com/g1879/DrissionPage.git
-```
-
-4. **配置浏览器路径**
-编辑 `dp_debug.py` 中的浏览器路径：
-```python
-co.set_browser_path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
-```
-
-## 🛠️ 使用方法
-
-### 快速开始
-
-1. **启动逆向调试工具**
-```bash
-python dp_debug.py
-```
-
-### 高级用法
-
-#### 自定义浏览器配置
-```python
-from DrissionPage import ChromiumOptions
-
-co = ChromiumOptions()
-co.headless(False)                    # 显示浏览器窗口
-co.set_argument('--start-maximized')  # 最大化窗口
-co.set_argument('--ignore-certificate-errors')  # 忽略证书错误
-co.set_local_port('9222')             # 指定调试端口
-co.set_browser_path(r"path\to\browser.exe")  # 指定浏览器路径
-```
-
-#### 网络监听和数据保存
-```python
-from dp_debug import DrissionPageDebug
-
-debugger = DrissionPageDebug()
-debugger.start_monitoring()
-
-# 自动保存到 data/network_packets_[session_id].jsonl
-```
-
-
-## 📁 项目结构
-
-```
-DrissionPage/
-├── dp_debug.py           # 主调试工具
-├── cloudflare/           # Cloudflare绕过工具
-│   ├── main.py          # 主程序
-│   └── helper.py        # 辅助函数
-├── chrome/              # Chrome浏览器环境
-│   ├── Chrome-bin/     # Chrome可执行文件
-│   └── chromedriver.exe # WebDriver
-├── plugin/              # Chrome扩展插件
-│   ├── AntiDebug_Breaker-main/  # 反调试绕过插件
-│   └── dp_helper/       # 开发者工具插件
-├── js/                  # JavaScript工具脚本
-│   ├── cookie_monitor.js     # Cookie监控
-│   ├── debug_utils.js        # 调试工具
-│   └── module_manager.js     # 模块管理器
-├── data/                # 数据存储目录
-│   └── network_packets_*.jsonl  # 网络数据包
-├── logs/                # 日志文件目录
-│   ├── console_logs_*.txt    # 控制台日志
-│   └── dp_debug_*.log        # 调试日志
-├── README.md           # 项目文档
-└── .gitignore         # Git忽略文件
-```
-
-## 🔧 配置选项
-
-### 环境变量
-```bash
-# 设置代理（如果需要）
-export http_proxy=http://proxy.example.com:8080
-export https_proxy=http://proxy.example.com:8080
-
-# 或清除代理
-unset http_proxy
-unset https_proxy
-```
-
-### 配置文件
-项目支持以下配置文件：
-
-- `config/browser.json` - 浏览器配置
-- `config/plugins.json` - 插件配置
-- `config/logging.json` - 日志配置
-
-## 📊 数据格式说明
-
-### 网络数据包格式
+## 配置文件（可选）
+`config/dp_debug.json` 支持覆盖命令行参数。关键节：
 ```json
 {
-  "timestamp": "2024-01-01 12:00:00",
-  "url": "https://example.com/api/data",
-  "method": "GET",
-  "status_code": 200,
-  "request_headers": {...},
-  "response_headers": {...},
-  "body_size": 1024,
-  "response_size": 2048,
-  "content_type": "application/json",
-  "body_sample": "{\"data\": \"example\"}"
+  "startup": {
+    "url": "https://example.com",
+    "inject": true,
+    "listen": true,
+    "chrome": "",
+    "headless": false,
+    "devtools": true,
+    "jsFiles": ["debug_utils.js"],
+    "listenPatterns": ["http", "ws"],
+    "saveNetwork": "data/network_packets.jsonl",
+    "logLevel": "DEBUG",
+    "timeout": 0
+  },
+  "network": {
+    "include": ["api.example.com", "/login/"],
+    "exclude": [],
+    "contentTypes": ["application/json"],
+    "headers": true,
+    "bodies": false,
+    "maxBodyChars": 4096,
+    "redactHeaders": ["authorization", "cookie", "set-cookie"]
+  }
 }
 ```
 
-### Cookie监控数据格式
-```json
-{
-  "timestamp": "2024-01-01 12:00:00",
-  "action": "set",
-  "domain": "example.com",
-  "name": "session_id",
-  "value": "abc123...",
-  "path": "/",
-  "expires": "2024-12-31T23:59:59Z",
-  "httpOnly": false,
-  "secure": true
-}
-```
+## 输出与目录
+- 日志：`logs/dp_debug_<session>.log`，控制台：`logs/console_logs_<session>.{txt,jsonl}`
+- 抓包：`data/network_packets_<session>.jsonl`
+- 主要目录：`dp_debug.py`、`js/`（注入脚本）、`plugin/`（浏览器扩展）、`config/`（示例配置）
 
-### 控制台日志格式
-```
-[2024-01-01 12:00:00] [INFO] 页面加载完成
-[2024-01-01 12:00:01] [ERROR] JavaScript错误: TypeError: Cannot read property
-[2024-01-01 12:00:02] [WARN] 网络请求失败，重试中...
-```
-
-## 🐛 常见问题
-
-### 浏览器启动失败
-**问题**: `FileNotFoundError: 无法找到浏览器可执行文件路径`
-
-**解决方法**:
-1. 检查浏览器路径是否正确
-2. 确保浏览器已安装且路径存在
-3. 尝试使用绝对路径
-
-### 网络连接问题
-**问题**: pip安装时出现代理错误
-
-**解决方法**:
-1. 使用国内镜像源
-2. 清除代理设置
-3. 使用VPN或直接连接
-
-### 数据格式错误
-**问题**: JSON文件中出现格式错误
-
-**解决方法**:
-1. 检查数据中是否包含特殊字符
-2. 使用最新的数据清理功能
-3. 查看日志文件了解具体错误
-
-## 📈 性能优化
-
-### 内存优化
-- 定期清理过期的数据包
-- 使用流式处理大文件
-- 合理设置缓存大小
-
-### 网络优化
-- 使用连接池复用连接
-- 设置合理的超时时间
-- 实现重试机制
-
-## 🙏 致谢
-
-- [DrissionPage](https://github.com/g1879/DrissionPage) - 核心自动化框架
-- [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) - 浏览器调试协议
-- 所有开源贡献者和社区成员
-
+## 常见问题
+- DrissionPage 导入失败：执行 `pip install DrissionPage`；或升级 Python 与 pip。
+- 找不到浏览器：设置环境变量 `DP_CHROME` 指向 `chrome.exe`/`msedge.exe`，或将可执行文件放在 `chrome/Chrome-bin/`。
 
